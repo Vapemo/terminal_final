@@ -17,14 +17,14 @@ while true; do
   read input
 
   case $input in
-    ayuda) bash comandos/ayuda.sh ;;
-    infosis) bash comandos/infosis.sh ;;
-    fecha) bash comandos/fecha.sh ;;
-    buscar*) bash comandos/buscar.sh $input ;;
-    creditos) bash comandos/creditos.sh ;;
-    juego) bash comandos/juego.sh ;;
-    mp3) bash comandos/mp3.sh ;;
-    salir) bash comandos/salir.sh && exit 0 ;;
+    ayuda) bash ayuda.sh ;;
+    infosis) bash infosis.sh ;;
+    fecha) bash fecha.sh ;;
+    buscar*) bash buscar.sh $input ;;
+    creditos) bash creditos.sh ;;
+    juego) bash juego.sh ;;
+    mp3) bash mp3.sh ;;
+    salir) bash salir.sh && exit 0 ;;
     *) echo " Comando incorrecto: $input" ;; #listado (ayuda,infosis,fecha,buscar,creditos(nuestros nombres),juego ,reproductor,salida )
   esac
 done
