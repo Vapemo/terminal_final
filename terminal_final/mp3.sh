@@ -35,7 +35,7 @@ fi
 # Menú
 while true; do
     clear
-    echo -e "${CYAN}🎵 Canciones disponibles:${RESET}"
+    echo -e "${CYAN} Canciones disponibles:${RESET}"
     for i in "${!canciones[@]}"; do
         echo -e "${YELLOW}$((i+1))${RESET}) $(basename "${canciones[$i]}")"
     done
@@ -49,7 +49,7 @@ while true; do
 
     if [[ "$opcion" =~ ^[0-9]+$ ]] && (( opcion >= 1 && opcion <= ${#canciones[@]} )); then
         archivo="${canciones[$((opcion-1))]}"
-        echo -e "${GREEN}▶Reproduciendo:${RESET} $(basename "$archivo")"
+        echo -e "${GREEN}Reproduciendo:${RESET} $(basename "$archivo")"
         mpg123 "$archivo"
         read -n1 -rsp $'\nPresiona una tecla para continuar...\n'
     else
