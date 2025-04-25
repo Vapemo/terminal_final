@@ -26,6 +26,7 @@ echo "============================"
 echo "      JUEGO DEL AHORCADO"
 echo "============================"
 sleep 1
+#bucle del juego
 
 while (( intentos > 0 )); do
     echo -e "\nIntentos restantes: $intentos"
@@ -33,7 +34,12 @@ while (( intentos > 0 )); do
     echo -n "Palabra: "
     mostrar_progreso
 
-    read -rp "Adivina una letra: " letra
+    read -rp "Adivina una letra (o escribe 'salir' para terminar): " letra
+
+    if [[ "$letra" == "salir" ]]; then
+        echo "Has salido del juego. ¡Hasta la próxima!"
+        exit 0
+    fi
 
     if [[ ! "$letra" =~ ^[a-zA-Z]$ ]]; then
         echo "Solo una letra."
@@ -65,7 +71,7 @@ while (( intentos > 0 )); do
     done
 
     if (( aciertos == longitud )); then
-        echo -e "\n¡Felicidades! Encontraste la palabra: $palabra_secreta"
+        echo -e "\n Encontraste la palabra: $palabra_secreta"
         break
     fi
 done
