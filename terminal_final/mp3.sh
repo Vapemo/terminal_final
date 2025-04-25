@@ -1,143 +1,106 @@
 #!/bin/bash
 
-# ruta de la musica
-MUSIC_DIR="recursom"
+# ruta de  la carpeta de música
+MUSIC_DIR="$(dirname "$0")/../recursom"
 
-# muestra un menú
+# verificar si esta mpg123 
+if ! command -v mpg123 &>/dev/null; then
+    echo "El programa 'mpg123' no está instalado."
+    read -p "¿Deseas instalarlo ahora? [s/n]: " respuesta
+    if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
+        sudo apt update && sudo apt install -y mpg123
+    else
+        echo "No se puede continuar sin 'mpg123'."
+        exit 1
+    fi
+fi
+
+#  carpeta y se carga las canciones
+if [ ! -d "$MUSIC_DIR" ]; then
+    echo " Carpeta '$MUSIC_DIR' no encontrada."
+    exit 1
+fi
+
+mapfile -t canciones < <(find "$MUSIC_DIR" -type f -iname "*.mp3")
+
+if [[ ${#canciones[@]} -eq 0 ]]; then
+    echo " No hay canciones MP3 en '$MUSIC_DIR'"
+    exit 1
+fi
+
+indice=0
+
 mostrar_menu() {
-    clear
-    echo "========================="
-    echo "  REPRODUCTOR MP3 "
-    echo "========================="
-    echo "1) Seleccionar carpeta de música"
-    echo "2) Ver lista de canciones"
-    echo "3) Reproducir canción"
-    echo "4) Siguiente canción"
-    echo "5) Canción anterior"
-    echo "6) Salir"
+    echo
+    echo "======= REPRODUCTOR MP3 ======="
+    echo "1. Ver canciones"
+    echo "2. Reproducir"
+    echo "3. Siguiente"
+    echo "4. Anterior"
+    echo "5. Salir"
+    echo
 }
 
-# variables para el  estado
-canciones=()
-indice_actual=0
-
-# verifica que mpg123 esté instalado
-verificar_mpg123() {
-    if ! command -v mpg123 &>/dev/null; then
-        echo "El programa 'mpg123' no está instalado."
-        read -p "¿Deseas instalarlo ahora? (s/n): " respuesta
-        if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
-            sudo apt update && sudo apt install -y mpg123
-            if ! command -v mpg123 &>/dev/null; then
-                echo "Error: No se pudo instalar 'mpg123'. Saliendo..."
-                exit 1
-            fi
-        else
-            echo "No se puede continuar sin 'mpg123'. Saliendo..."
-            exit 1
+ver_canciones() {
+    echo "Canciones disponibles:"
+    for i in "${!canciones[@]}"; do
+        actual=""
+        if [[ "$i" -eq "$indice" ]]; then
+            actual=" <-- Actual"
         fi
-    fi
+        echo " [$((i+1))] $(basename "${canciones[$i]}")$actual"
+    done
 }
 
-# toma la  música desde una carpeta
-cargar_musica() {
-    read -p "Introduce la ruta de la carpeta con música: " MUSIC_DIR
-    if [ -d "$MUSIC_DIR" ]; then
-        canciones=("$(find "$MUSIC_DIR" -type f -name "*.mp3" 2>/dev/null)")
-        if [ ${#canciones[@]} -eq 0 ]; then
-            echo "No se encontraron archivos MP3 en la carpeta."; sleep 2
-        else
-            echo "Canciones cargadas correctamente."; sleep 2
-        fi
-    else
-        echo "La carpeta especificada no existe."; sleep 2
-    fi
+reproducir_actual() {
+    echo
+    echo " Reproduciendo: $(basename "${canciones[$indice]}")"
+    mpg123 "${canciones[$indice]}"
 }
 
-# muestra las  canciones
-listar_canciones() {
-    if [ ${#canciones[@]} -eq 0 ]; then
-        echo "No hay canciones cargadas."
-    else
-        echo "Lista de canciones:"
-        for i in "${!canciones[@]}"; do
-            echo "$((i + 1))) $(basename "${canciones[i]}")"
-        done
-    fi
-    read -p "Presiona [Enter] para continuar..."
-}
-
-# reproduce la  canción
-reproducir_cancion() {
-    if [ ${#canciones[@]} -eq 0 ]; then
-        echo "No hay canciones cargadas."; sleep 2
-        return
-    fi
-    echo "Reproduciendo: $(basename "${canciones[indice_actual]}")"
-    mpg123 "${canciones[indice_actual]}" &>/dev/null &
-}
-
-# detiene la canción
-parar_cancion() {
-    pkill mpg123 2>/dev/null
-}
-
-#  cambia a la siguiente canción
 siguiente_cancion() {
-    if [ ${#canciones[@]} -eq 0 ]; then
-        echo "No hay canciones cargadas."; sleep 2
-        return
+    ((indice++))
+    if (( indice >= ${#canciones[@]} )); then
+        indice=0
     fi
-    parar_cancion
-    indice_actual=$(( (indice_actual + 1) % ${#canciones[@]} ))
-    reproducir_cancion
+    echo "Siguiente: $(basename "${canciones[$indice]}")"
 }
 
-#  cambia a la canción anterior
 anterior_cancion() {
-    if [ ${#canciones[@]} -eq 0 ]; then
-        echo "No hay canciones cargadas."; sleep 2
-        return
+    ((indice--))
+    if (( indice < 0 )); then
+        indice=$((${#canciones[@]} - 1))
     fi
-    parar_cancion
-    indice_actual=$(( (indice_actual - 1 + ${#canciones[@]}) % ${#canciones[@]} ))
-    reproducir_cancion
+    echo "Anterior: $(basename "${canciones[$indice]}")"
 }
 
-# verifica  que mpg123 esté instalado antes de iniciar
-verificar_mpg123
-
-# bucle principal
+# menú
 while true; do
     mostrar_menu
     read -p "Selecciona una opción: " opcion
 
     case $opcion in
         1)
-            cargar_musica
+            ver_canciones
             ;;
         2)
-            listar_canciones
+            reproducir_actual
             ;;
         3)
-            parar_cancion
-            reproducir_cancion
-            ;;
-        4)
             siguiente_cancion
             ;;
-        5)
+        4)
             anterior_cancion
             ;;
-        6)
-            parar_cancion
-            echo "Salida..."
-            exit 0
+        5)
+            echo "Saliendo del reproductor..."
+            break
             ;;
         *)
-            echo "Opción no válida."; sleep 2
+            echo "Opción inválida."
             ;;
     esac
-
+    echo
+    read -n1 -rsp $'Presiona una tecla para continuar...\n'
 done
 
