@@ -7,6 +7,7 @@
 Un sistema interactivo que simula una terminal real para gestionar archivos, reproducir música, consultar información del sistema, jugar y mucho más.
 
 🎯 Características principales:
+
     🔐 Sistema de Acceso:
     Inicio de sesión con usuario y contraseña reales del sistema operativo anfitrión. Solo usuarios válidos pueden ingresar.
     🧰 Línea de Comandos:
