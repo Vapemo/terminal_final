@@ -49,3 +49,10 @@ Un sistema interactivo que simula una terminal para gestionar archivos, consulta
 | `salir`    | Cierra la terminal de forma segura.                    |
 
 ---
+
+## 👥 Desarrolladores
+
+| Nombre Completo          | Rol            |
+|:-------------------------|:---------------|
+| Camila Salas             | Desarrollador  |
+| Valeria Perez            | Desarrollador  |
