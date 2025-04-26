@@ -1,5 +1,9 @@
 #!/bin/bas}
 
+echo -e "\n\e[36m╔════════════════════════════════╗"
+echo -e "║        🖥️  INFORMACIÓN DEL SISTEMA  ║"
+echo -e "╚════════════════════════════════╝\e[0m\n"
+
 
 echo "Sistema:             " "$(uname -s)"
 echo "Distribución:        " "$(cat /etc/os-release | grep -i '^PRETTY_NAME=' | cut -d= -f2- | tr -d '"')"
