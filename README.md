@@ -9,8 +9,11 @@ Un sistema interactivo que simula una terminal real para gestionar archivos, rep
 🎯 Características principales:
 
     🔐 Sistema de Acceso:
+    
     Inicio de sesión con usuario y contraseña reales del sistema operativo anfitrión. Solo usuarios válidos pueden ingresar.
+    
     🧰 Línea de Comandos:
+    
     Terminal amigable con comandos personalizados para:
         Navegar, buscar y trabajar con archivos.
         
