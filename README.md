@@ -26,7 +26,6 @@ Un sistema interactivo que simula una terminal real para gestionar archivos, con
 
 - 🎮 **Juegos Integrados**:
   - **Ahorcado**: Adivina palabras.
-  - **Gato (Tres en Raya)**: Juega contra otro usuario.
 
 - 🔚 **Sistema de Salida Controlada**:
   - Comando `salir` que cierra la terminal de forma segura.
