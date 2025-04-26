@@ -1,5 +1,7 @@
 #!/bin/bash
-
+echo -e "\n\e[36m╔═════════════════════════════╗"
+echo -e "║        📅 FECHA Y HORA       ║"
+echo -e "╚═════════════════════════════╝\e[0m\n"
 
 hora=$(grep "rtc_time" /proc/driver/rtc | awk '{print $3}')
 IFS=":" read -ra time <<< "$hora"
