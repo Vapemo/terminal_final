@@ -2,7 +2,7 @@
 # 🖥️ Terminal de Trabajo — Proyecto Final
 
 ¡Bienvenido a **Terminal de Trabajo**!  
-Un sistema interactivo que simula una terminal real para gestionar archivos, consultar información del sistema, reproducir música, jugar y mucho más.
+Un sistema interactivo que simula una terminal para gestionar archivos, consultar información del sistema, reproducir música, jugar y mucho más.
 
 ---
 
