@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo -e "\n\e[36m╔════════════════════════════╗"
+echo -e "║        🔍 BUSCAR ARCHIVOS     ║"
+echo -e "╚════════════════════════════╝\e[0m\n"
+
+
 echo "Directorio: "
 read ruta
 
