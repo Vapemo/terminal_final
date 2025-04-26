@@ -10,6 +10,7 @@ Un sistema interactivo que simula una terminal para gestionar archivos, consulta
 
 - 🔐 **Sistema de Acceso**:  
   Inicio de sesión con usuario y contraseña reales del sistema operativo anfitrión. Solo usuarios válidos pueden ingresar.
+  Para probarlo en tu terminal se tiene que crear un usuario con sudo adduser usuario1 y la contrasela tiene que ser protecsa
 
 - 🧰 **Línea de Comandos**:  
   Terminal amigable con comandos personalizados para:
