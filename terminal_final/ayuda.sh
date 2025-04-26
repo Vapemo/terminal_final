@@ -7,7 +7,9 @@ VERDE='\033[1;32m'
 NC='\033[0m' 
 
 printf "\n\n"
-echo -e "${MAGENTA}-----A Y U D A-----${NC}"
+echo -e "\n\e[36m╔════════════════════════════════╗"
+echo -e "║         📖 AYUDA DEL SISTEMA     ║"
+echo -e "╚════════════════════════════════╝\e[0m\n"
 printf "\n\n"
 echo -e "${VERDE}Comando           ${AZUL}Descripción${NC}"
 echo -e "${MAGENTA}-------------------------------------------------------------------${NC}"
@@ -25,4 +27,3 @@ echo -e "${VERDE}mp3${NC}               ${AZUL}Escuchar música${NC}"
 echo -e "${MAGENTA}------------------------------------------------------------------${NC}"
 echo -e "${VERDE}salir${NC}             ${AZUL}Salir de la terminal${NC}"
 printf "\n\n"
-
